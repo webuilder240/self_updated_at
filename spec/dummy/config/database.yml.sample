@@ -1,0 +1,19 @@
+sqlite3:
+  adapter: sqlite3
+  database: ':memory:'
+
+mysql:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  database: self_updated_at_test
+  charset: utf8
+
+postgresql:
+  adapter: postgresql
+  hostname: localhost
+  username: postgres
+  password:
+  database: self_updated_at_test
+  encoding: utf8

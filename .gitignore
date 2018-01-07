@@ -6,6 +6,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+spec/dummy/config/database.yml
+spec/debug.log
 
 # rspec failure tracking
 .rspec_status
