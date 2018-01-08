@@ -27,9 +27,9 @@ module SelfUpdatedAt
   end
 
   module ClassMethods
-    def self_updated_at(update_column_name, hook_columns:)
+    def self_updated_at(update_column_name, columns:)
       before_save do
-        if hook_columns.any?{ |c| send("#{c}_changed?") }
+        if columns.any?{ |c| send("#{c}_changed?") }
           current_time = self.class.default_timezone == :utc ? Time.now.utc : Time.now
           write_attribute(update_column_name, current_time)
         end
