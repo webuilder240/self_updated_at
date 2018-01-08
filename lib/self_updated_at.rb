@@ -28,9 +28,14 @@ module SelfUpdatedAt
 
   module ClassMethods
     def self_updated_at(update_column_name, columns: [], methods: [])
-      before_save do
-        if columns.any?{ |c| send("#{c}_changed?") } || methods.any? { |m| send(m) }
-          current_time = self.class.default_timezone == :utc ? Time.now.utc : Time.now
+      before_create do
+        current_time = self.class.default_timezone == :utc ? Time.now.utc : Time.now
+        write_attribute(update_column_name, current_time) if eval("#{update_column_name}.nil?")
+        self
+      end
+      before_update do
+        current_time = self.class.default_timezone == :utc ? Time.now.utc : Time.now
+        if !new_record? && (columns.any?{ |c| send("#{c}_changed?") } || methods.any? { |m| send(m) })
           write_attribute(update_column_name, current_time)
         end
         self
