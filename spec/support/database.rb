@@ -30,6 +30,7 @@ if File.exist?(database_yml)
 
   load(File.dirname(__FILE__) + '/../dummy/db/schema.rb')
   load(File.dirname(__FILE__) + '/../dummy/models/self_updated_at_test_model.rb')
+  load(File.dirname(__FILE__) + '/../dummy/models/self_updated_at_test_model_support_method.rb')
 
 else
   fail "Please create #{database_yml} first to configure your database. Take a look at: #{database_yml}.sample"

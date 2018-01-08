@@ -4,6 +4,17 @@ RSpec.describe SelfUpdatedAt do
   end
 
   describe "self_updated_at" do
+    context 'support self_updated_at for true methods' do
+      let(:test_model) do
+        SelfUpdatedAtTestModelSupportMethod.create(title: 'hoge', body: 'fuga', service_updated_at: Time.now - 1.hours)
+      end
+
+      let!(:before_update_service_updated_at) { test_model.service_updated_at }
+
+      it 'call true_method' do
+        expect(test_model.service_updated_at.to_s).to eq Time.now.utc.to_s
+      end
+    end
     context 'set self_updated_at for update columns' do
       let(:test_model) do
         SelfUpdatedAtTestModel.create(title: 'hoge', body: 'fuga', service_updated_at: Time.now - 1.hours)
