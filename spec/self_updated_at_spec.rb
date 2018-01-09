@@ -7,10 +7,19 @@ RSpec.describe SelfUpdatedAt do
 
     context 'self_updated_at for nil service_updated_at' do
       let(:test_model) do
-        SelfUpdatedAtTestModelTrueMethod.create(title: 'hoge', body: 'fuga')
+        SelfUpdatedAtTestModel.create(title: 'hoge', body: 'fuga')
       end
       it 'set service_updated_at Time.now' do
         expect(test_model.service_updated_at.to_s).to eq Time.now.utc.to_s
+      end
+    end
+
+    context 'self_updated_at for nil service_updated_at' do
+      let(:test_model) do
+        SelfUpdatedAtTestModel.create(title: 'hoge', body: 'fuga', service_updated_at: Time.now - 1.hours)
+      end
+      it 'set service_updated_at variable' do
+        expect(test_model.service_updated_at.to_s).to eq (Time.now.utc - 1.hours).to_s
       end
     end
 

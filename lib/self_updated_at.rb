@@ -35,7 +35,7 @@ module SelfUpdatedAt
       end
       before_update do
         current_time = self.class.default_timezone == :utc ? Time.now.utc : Time.now
-        if !new_record? && (columns.any?{ |c| send("#{c}_changed?") } || methods.any? { |m| send(m) })
+        if (columns.any?{ |c| send("#{c}_changed?") } || methods.any? { |m| send(m) })
           write_attribute(update_column_name, current_time)
         end
         self
