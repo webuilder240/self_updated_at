@@ -35,7 +35,13 @@ module SelfUpdatedAt
       end
       before_update do
         current_time = self.class.default_timezone == :utc ? Time.now.utc : Time.now
-        if (columns.any?{ |c| send("#{c}_changed?") } || methods.any? { |m| send(m) })
+        # for ActiveRecord ~> 5.1
+        if Gem::Version.new(ActiveRecord.version) >= Gem::Version.new('5.1')
+          columns_changed = columns.any? { |c| will_save_change_to_attribute?(c)  }
+        else
+          columns_changed = columns.any? { |c| attribute_changed?(c)  }
+        end
+        if (columns_changed || methods.any? { |m| send(m) })
           write_attribute(update_column_name, current_time)
         end
         self
