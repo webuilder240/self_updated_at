@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    self_updated_at (0.2.0)
+    self_updated_at (0.2.1)
       activerecord (>= 4.2.8)
 
 GEM
